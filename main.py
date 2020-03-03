@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 from translate import translate
 from pprint import pprint
 from time import sleep
@@ -9,7 +11,7 @@ import os
 
 URL = 'https://api.vk.com/method/'
 VER = '5.103'
-TOKEN = '02105ad5d9c45329a2fbd26a5996a1bdd09f7cb88a406a3ab1261beabfd4f34fb9585d0bdc99745464a0c'
+TOKEN = '73eaea320bdc0d3299faa475c196cfea1c4df9da4c6d291633f9fe8f83c08c4de2a3abf89fbc3ed8a44e1'
 
 
 def make_output_dir():
@@ -24,16 +26,7 @@ def make_output_dir():
 def write_json(text, id, members=0, mode='wt'):
     '''
     write text to file
-    :param text:
-    json data
-    :param id:
-    int/str id`s user
-    :param members:
-     count member friends of group
-    :param mode:
-    write text default
-    :return:
-    file with text in folder name output
+
     '''
     out_file = os.path.join('output', f'groups_id-{id}_members-{members}.json')
     txt = json.dumps(text, sort_keys=True, indent=4, ensure_ascii=False)
@@ -47,9 +40,6 @@ class UserVK:
     """
     def __init__(self, id='171691064'):
         """
-        Создание экземпляра класса. По-дефолту Мой куратор eshmargunov.
-        Таймаут на выполнение запроса 0.2 секунды достаточно для вхождения в ограничение 3 запроса в секунду,
-        т.к. дополнительно учитывается время выполнения кода и самого запроса...
         :param id:
         user id(s)
         """
@@ -96,6 +86,7 @@ class UserVK:
     def getgroups(self):
         '''
         get list groups for self
+
         :return:
         list ids of all groups
         '''
@@ -127,6 +118,7 @@ class UserVK:
     def getspygroups(self, members=1):
         '''
         method for get spy groups
+
         :param members:
         count member friends of group
         :return:
@@ -181,6 +173,7 @@ class GroupVK:
         Создание экземпляра класса Группа.
         Таймаут на выполнение запроса 0.2 секунды достаточно для вхождения в ограничение 3 запроса в секунду,
         т.к. дополнительно учитывается время выполнения кода и самого запроса...
+
         :param id:
         group id
         """
@@ -216,6 +209,7 @@ class GroupVK:
 def input_id_user(members=1):
     '''
     input id(s) user(s) (+ members) -> print spy groups & create file with spy groups
+
     :param members:
     count member friends of group
     :return:
@@ -233,6 +227,7 @@ def input_id_user(members=1):
 def very_main():
     '''
     main function for communication people and program
+
     :return:
     good user experience
     '''
@@ -262,17 +257,17 @@ def very_main():
                       '\n   0. Выйти из программы.'
                       '\n\n   В программе используется «Яндекс.Переводчик» http://translate.yandex.ru/')
             elif prog == '0':
-                print('\n   Спасибо за внимание!',
-                      '\n   Это была очень интересная работа',
+                print('\n   Надеемся Вам понравилась моя работа!',
+                      '\n   Буду рад если моя работа Вам понравилась',
                       '\n   Досвидания!'.upper(),
                       '\n\n   В программе был использован «Яндекс.Переводчик» http://translate.yandex.ru/')
                 break
             else:
-                print('\nТакой функционал программы пока не подвезли)))'
-                      '\nЕсть предложения? Пишите по адресу: info@it-vi.ru')
+                print('\nТакой функционал программы пока я еще не разработал)))'
+                      '\nСпасибо за оказанную помощь в создании данной дипломной работы')
     except KeyboardInterrupt:
-        print('\n\n   Спасибо за внимание!',
-              '\n   Это была очень интересная работа',
+        print('\n\n   Надеемся Вам очень понравилась !',
+              '\n   Буду рад если моя работа Вам понравилась',
               '\n   Досвидания!'.upper(),
               '\n\n   В программе был использован «Яндекс.Переводчик» http://translate.yandex.ru/')
 
