@@ -80,7 +80,7 @@ class UserVK:
             self.family = resp['last_name']
             self.name = resp['first_name']
             self.domain = resp['domain']
-            self.fio = self.family + ' ' + self.name
+            self.fio = f'{self.family} {self.name}'
             self.url = f'https://vk.com/{self.domain}'
 
     def getgroups(self):
@@ -135,8 +135,8 @@ class UserVK:
             t.update(13)
             lst_spy_gid = []
             lst_tmp = self.getgroups()
+            method = 'groups.getMembers'
             for group in lst_tmp:
-                method = 'groups.getMembers'
                 parametrs = {
                     'group_id': group,
                     'filter': 'friends',
@@ -149,10 +149,10 @@ class UserVK:
                 if response.json()['response']['count'] < members:
                     lst_spy_gid.append(group)
                     t.update(2)
-            lst_spy = []
-            if len(lst_spy_gid) == 0:
+            if not lst_spy_gid:
                 print('\nТаковых групп пользователь не имеет.')
             else:
+                lst_spy = []
                 for lst in lst_spy_gid:
                     globals()[f'grp_{lst}'] = GroupVK(lst)
                     lst_spy.append(globals()[f'grp_{lst}'].__dict__())
@@ -187,10 +187,7 @@ class GroupVK:
         sleep(0.2)
         response = requests.get(url=f'{URL}{method}', params=parametrs)
         resp = response.json()['response'][0]
-        if 'deactivated' in resp.keys():
-            self.membs = None
-        else:
-            self.membs = resp['members_count']
+        self.membs = None if 'deactivated' in resp.keys() else resp['members_count']
         self.name = resp['name']
         self.gid = resp['id']
         self.url = f'https://vk.com/club{self.gid}'
